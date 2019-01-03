@@ -28,10 +28,12 @@ public class Camera extends Particle {
 		this.height = height;
 		this.width = width;
 		this.cast = new Vector[height][width];
+		recast();
 	}
 
 	public void setFOV(double scale) {
 		this.scale = scale;
+		recast();
 	}
 
 	public void setPos(Vector pos) {
