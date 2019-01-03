@@ -1,6 +1,7 @@
 public class Vector {
 
 	private double x, y, z;
+	public static final Vector VECTOR_ZERO = new Vector(0, 0, 0);
 
 	public Vector(double x, double y, double z) {
 		this.x = x;
@@ -41,6 +42,18 @@ public class Vector {
 	public Vector crossProduct(Vector other) { // returns the cross product of two Vectors
 		// Normally this would be defined using determinants/matrices. Here the x,y,z formula is just hard-coded
 		return new Vector(this.y*other.z - other.y*this.z, this.z*other.x - other.z*this.x, this.x*other.y - other.x*this.y);
+	}
+
+	// returns whether a given ray intersects a given plane within a given triangle
+	// pos = origin of ray
+	// dir = direction of ray
+	// tri = Triangle object
+	public static boolean intersectsTriangle(Vector pos, Vector dir, Triangle tri) {
+		tri = tri.translate(VECTOR_ZERO.subtract(pos));
+		double d = dir.dotProduct(tri.normal());
+		if (d == 0) return false; // if the ray is parallel to the plane, just return false
+		double m = tri.center().dotProduct(tri.normal())/d;
+		return m > 0 && tri.contains(dir.scale(m));
 	}
 
 }
