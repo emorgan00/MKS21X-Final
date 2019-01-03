@@ -34,4 +34,12 @@ public class Vector {
 		return new Vector(this.x*k, this.y*k, this.z*k);
 	}
 
+	public double dotProduct(Vector other) {
+		return this.x*other.x + this.y*other.y + this.z*other.z;
+	}
+
+	public Vector crossProduct(Vector other) {
+		return new Vector(this.y*other.z - other.y*this.z, this.z*other.x - other.z*this.x, this.x*other.y - other.x*this.y);
+	}
+
 }
