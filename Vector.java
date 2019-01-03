@@ -2,6 +2,9 @@ public class Vector {
 
 	private double x, y, z;
 	public static final Vector ZERO = new Vector(0, 0, 0);
+	public static final Vector UNIT_X = new Vector(1, 0, 0);
+	public static final Vector UNIT_Y = new Vector(0, 1, 0);
+	public static final Vector UNIT_Z = new Vector(0, 0, 1);
 
 	public Vector(double x, double y, double z) {
 		this.x = x;

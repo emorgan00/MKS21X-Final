@@ -8,7 +8,7 @@ public class Camera extends Particle {
 	private String[][] displaybuffer; // holds what will be printed
 
 	public Camera(int height, int width) {
-		super(Vector.ZERO, new Vector(1, 0, 0));
+		super(Vector.ZERO, Vector.UNIT_X);
 		this.scale = 0.5; // arbitrarily 45 degrees in each direction
 		this.height = height;
 		this.width = width;
