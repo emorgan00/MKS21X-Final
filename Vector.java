@@ -35,6 +35,10 @@ public class Vector {
 		return new Vector(this.x*k, this.y*k, this.z*k);
 	}
 
+	public Vector unitize() { // unit vector pointing in the same direction
+		return this.scale(1./this.magnitude());
+	}
+
 	public double dotProduct(Vector other) { // returns the dot product of two Vectors
 		return this.x*other.x + this.y*other.y + this.z*other.z;
 	}

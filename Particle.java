@@ -4,7 +4,7 @@ public class Particle { // like a vector, but mutable and has both position and 
 
 	public Particle(Vector pos, Vector dir) {
 		this.pos = pos;
-		this.dir = dir;
+		this.dir = dir.unitize(); // particles are not instantiated all that often, so this is OK runtime-wise.
 	}
 
 	public String toString() {
