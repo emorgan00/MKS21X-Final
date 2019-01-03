@@ -43,6 +43,17 @@ public class Camera extends Particle {
 		clearBuffer();
 	}
 
+	public void recast() { // update cast[][] vectors
+		double woffset = width/2; // amount to shift horizontally to remain centered
+		for (int h = 0; h < height; h++) {
+			for (int w = 0; w < width; w++) { // yes, dividing w/height is intentional, we want to keep the proportions consistent =)
+				Vector offset = Vector.UNIT_Z.scale((0.5-(double)w/height)*scale).add(Vector.UNIT_Y.scale((0.5-(double)h/height)*scale*TERMINAL_RATIO));
+				cast[h][w] = dir().add(offset).unitize();
+			}
+		}
+		clearBuffer();
+	}
+
 	public void clearBuffer() { // clear the z-buffer and display-buffer
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
