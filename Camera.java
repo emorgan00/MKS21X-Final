@@ -23,4 +23,14 @@ public class Camera extends Particle {
 		return "Camera(pos: "+pos()+", dir: "+dir()+")";
 	}
 
+	public void resize(int height, int width) {
+		this.height = height;
+		this.width = width;
+		this.cast = new Vector[height][width];
+	}
+
+	public void setFOV(double scale) {
+		this.scale = scale;
+	}
+
 }
