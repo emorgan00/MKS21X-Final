@@ -56,4 +56,13 @@ public class Vector {
 		return m > 0 && tri.contains(dir.scale(m));
 	}
 
+	public static double distanceToTriangle(Vector pos, Vector dir, Triangle tri) { // see previous method, returns -1 if does not intersect
+		tri = tri.translateInverse(pos);
+		double d = dir.dotProduct(tri.normal());
+		if (d == 0) return -1; // if the ray is parallel to the plane, just return false
+		double m = tri.center().dotProduct(tri.normal())/d;
+		if (!tri.contains(dir.scale(m))) return -1;
+		return m; // note: this not the true distance, it is the factor by which the dir must be scaled to hit the triangle.
+	}
+
 }
