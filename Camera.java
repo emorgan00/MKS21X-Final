@@ -33,4 +33,13 @@ public class Camera extends Particle {
 		this.scale = scale;
 	}
 
+	public void clearBuffer() { // clear the z-buffer and display-buffer
+		for (int h = 0; h < height; h++) {
+			for (int w = 0; w < width; w++) {
+				zbuffer[h][w] = Double.POSITIVE_INFINITY;
+				displaybuffer[h][w] = " ";
+			}
+		}
+	}
+
 }
