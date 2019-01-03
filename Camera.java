@@ -10,13 +10,14 @@ public class Camera extends Particle {
 	public static final double TERMINAL_RATIO = 2; // value of (height / width) for a character on the terminal
 
 	public Camera(int height, int width) {
-		super(Vector.ZERO, Vector.UNIT_X);
+		super(Vector.ZERO, Vector.UNIT_X, Vector.UNIT_Y);
 		this.scale = 0.5; // arbitrarily 45 degrees in each direction
 		this.height = height;
 		this.width = width;
 		this.cast = new Vector[height][width];
 		this.zbuffer = new double[height][width];
 		this.displaybuffer = new String[height][width];
+		recast();
 	}
 
 	public String toString() {
@@ -44,10 +45,11 @@ public class Camera extends Particle {
 	}
 
 	public void recast() { // update cast[][] vectors
+		Vector hnorm = dir().crossProduct(normal()).unitize(); // offset unit vector in horizontal direction (vertical unit vector is just the normal)
 		double woffset = width/2; // amount to shift horizontally to remain centered
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) { // yes, dividing w/height is intentional, we want to keep the proportions consistent =)
-				Vector offset = Vector.UNIT_Z.scale((0.5-(double)w/height)*scale).add(Vector.UNIT_Y.scale((0.5-(double)h/height)*scale*TERMINAL_RATIO));
+				Vector offset = hnorm.scale(((w-woffset)/height)*scale).add(normal().scale((0.5-(double)h/height)*scale*TERMINAL_RATIO));
 				cast[h][w] = dir().add(offset).unitize();
 			}
 		}

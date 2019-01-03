@@ -1,10 +1,11 @@
 public class Particle { // like a vector, but mutable and has both position and direction
 
-	private Vector pos, dir;
+	private Vector pos, dir, normal;
 
-	public Particle(Vector pos, Vector dir) {
+	public Particle(Vector pos, Vector dir, Vector normal) { // the "normal" is used to specify roll, and points straight up
 		this.pos = pos;
 		this.dir = dir.unitize(); // particles are not instantiated all that often, so this is OK runtime-wise.
+		this.normal = normal.unitize();
 	}
 
 	public String toString() {
@@ -19,16 +20,16 @@ public class Particle { // like a vector, but mutable and has both position and 
 		return pos;
 	}
 
+	public Vector normal() {
+		return normal;
+	}
+
 	public void setPos(Vector pos) {
 		this.pos = pos;
 	}
 
 	public void translate(Vector motion) {
 		pos = pos.add(motion);
-	}
-
-	public void translateInverse(Vector motion) {
-		pos = pos.subtract(motion);
 	}
 
 }

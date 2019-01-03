@@ -4,14 +4,12 @@ public class Driver {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		Triangle t = new Triangle(new Vector(0, 1, 0), new Vector(0, 1, 1), new Vector(0, 0, 1));
+		Triangle t = new Triangle(new Vector(2, 1, 0), new Vector(2, 1, 1), new Vector(2, 0, 1));
 
-		Vector p = new Vector(1, 0, 0);
-		Vector d = new Vector(-1, 0.7, 0.7);
+		Camera c = new Camera(24, 80);
 
-		Particle x = new Particle(p, d);
-
-		System.out.println(Vector.intersectsTriangle(x.pos(), x.dir(), t));
+		c.clearBuffer();
+		System.out.println(c.dir());
 	}
 
 }
