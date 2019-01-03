@@ -33,12 +33,32 @@ public class Camera extends Particle {
 		this.scale = scale;
 	}
 
+	public void setPos(Vector pos) {
+		super.setPos(pos);
+		clearBuffer();
+	}
+
+	public void translate(Vector motion) {
+		super.translate(motion);
+		clearBuffer();
+	}
+
 	public void clearBuffer() { // clear the z-buffer and display-buffer
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
 				zbuffer[h][w] = Double.POSITIVE_INFINITY;
 				displaybuffer[h][w] = " ";
 			}
+		}
+	}
+
+	public void display() {
+		for (int h = 0; h < height; h++) {
+			for (int w = 0; w < width; w++) {
+				String ch = displaybuffer[h][w];
+				System.out.print(ch);
+			}
+			System.out.println();
 		}
 	}
 
