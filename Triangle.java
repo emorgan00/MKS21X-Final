@@ -13,6 +13,7 @@ public class Triangle {
 	}
 
 	public Triangle(Vector a, Vector b, Vector c, Vector normal, Vector center) {
+		// this is for use in Triangle.translate(): we don't want to recompute normals/centers
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -25,6 +26,7 @@ public class Triangle {
 	}
 
 	public Vector normal() {
+		// since the normals of Triangles will be fetched often, we precompute them and store in the Triangle object
 		return this.normal;
 	}
 
