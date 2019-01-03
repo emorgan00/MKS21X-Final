@@ -9,7 +9,9 @@ public class Driver {
 		Vector p = new Vector(1, 0, 0);
 		Vector d = new Vector(-1, 0.7, 0.7);
 
-		System.out.println(Vector.intersectsTriangle(p, d, t));
+		Particle x = new Particle(p, d);
+
+		System.out.println(Vector.intersectsTriangle(x.pos(), x.dir(), t));
 	}
 
 }
