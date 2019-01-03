@@ -1,7 +1,7 @@
 public class Vector {
 
 	private double x, y, z;
-	public static final Vector VECTOR_ZERO = new Vector(0, 0, 0);
+	public static final Vector ZERO = new Vector(0, 0, 0);
 
 	public Vector(double x, double y, double z) {
 		this.x = x;
@@ -49,7 +49,7 @@ public class Vector {
 	// dir = direction of ray
 	// tri = Triangle object
 	public static boolean intersectsTriangle(Vector pos, Vector dir, Triangle tri) {
-		tri = tri.translate(VECTOR_ZERO.subtract(pos));
+		tri = tri.translate(ZERO.subtract(pos));
 		double d = dir.dotProduct(tri.normal());
 		if (d == 0) return false; // if the ray is parallel to the plane, just return false
 		double m = tri.center().dotProduct(tri.normal())/d;
