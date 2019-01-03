@@ -38,4 +38,14 @@ public class Triangle {
 		return new Triangle(a.add(r), b.add(r), c.add(r), normal, center.add(r));
 	}
 
+	public Triangle translateInverse(Vector r) { // shortcut for subtraction instead of adding
+		return new Triangle(a.subtract(r), b.subtract(r), c.subtract(r), normal, center.subtract(r));
+	}
+
+	public boolean contains(Vector r) { // returns true if the point lies inside the triangular prism created by extending this triangle
+		Triangle moved = this.translateInverse(r);
+		Vector x = moved.a.crossProduct(moved.b);
+		return x.dotProduct(moved.b.crossProduct(moved.c)) >= 0 && x.dotProduct(moved.c.crossProduct(moved.a)) >= 0;
+	}
+
 }
