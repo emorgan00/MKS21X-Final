@@ -1,15 +1,28 @@
 import java.util.*;
+import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.screen.*;
+import com.googlecode.lanterna.terminal.*;
+import java.io.IOException;
+import java.util.concurrent.*;
 
 public class Driver {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws IOException, InterruptedException {
+		Screen screen = new DefaultTerminalFactory().createScreen();
+		screen.startScreen();
 
-		Triangle t = new Triangle(new Vector(2, 1, 0), new Vector(2, 1, 1), new Vector(2, 0, 1));
+		Camera cam = new Camera(screen);
+		cam.setPos(new Vector(-6, 0, 0));
 
-		Camera c = new Camera(24, 80);
+		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1));
 
-		c.clearBuffer();
-		System.out.println(c.dir());
+		cam.clearBuffer();
+		cam.render(tri);
+		cam.display();
+
+		Thread.sleep(1000);
+		screen.stopScreen();
 	}
 
 }

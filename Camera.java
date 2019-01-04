@@ -1,5 +1,6 @@
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.screen.*;
+import java.io.IOException;
 
 public class Camera extends Particle {
 
@@ -26,7 +27,7 @@ public class Camera extends Particle {
 	public Camera(Screen screen) {
 		super(Vector.ZERO, Vector.UNIT_X, Vector.UNIT_Y);
 		TerminalSize size = screen.getTerminalSize();
-		
+
 		this.scale = 0.5; // arbitrarily 45 degrees in each direction
 		this.height = size.getRows();
 		this.width = size.getColumns();
@@ -39,13 +40,6 @@ public class Camera extends Particle {
 
 	public String toString() {
 		return "Camera(pos: "+pos()+", dir: "+dir()+")";
-	}
-
-	public void resize(int height, int width) {
-		this.height = height;
-		this.width = width;
-		this.cast = new Vector[height][width];
-		recast();
 	}
 
 	public void setFOV(double scale) {
@@ -79,7 +73,7 @@ public class Camera extends Particle {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
 				zbuffer[h][w] = Double.POSITIVE_INFINITY;
-				displaybuffer[h][w] = null;
+				displaybuffer[h][w] = VOID_CHARACTER;
 			}
 		}
 	}
@@ -101,13 +95,14 @@ public class Camera extends Particle {
 		}
 	}
 
-	public void display() {
+	public void display() throws IOException {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
 				TextCharacter ch = displaybuffer[h][w];
 				screen.setCharacter(w, h, ch);
 			}
 		}
+		screen.refresh();
 	}
 
 }
