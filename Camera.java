@@ -67,6 +67,23 @@ public class Camera extends Particle {
 		}
 	}
 
+	public void render(Triangle tri) {
+		double d = Math.abs(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
+		// 1 means head-on, 0 means barely looking down the side
+
+		String displaychar = "#";
+
+		for (int h = 0; h < height; h++) {
+			for (int w = 0; w < width; w++) {
+				double dist = Vector.distanceToTriangle(pos(), cast[h][w], tri);
+				if (dist > 0 && dist < zbuffer[h][w]) {
+					zbuffer[h][w] = dist;
+					displaybuffer[h][w] = displaychar;
+				}
+			}
+		}
+	}
+
 	public void display() {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
