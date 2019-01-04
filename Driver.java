@@ -27,6 +27,7 @@ public class Driver {
 			cam.display();
 			cam.doResizeIfNecessary();
 		}
+		
 		screen.stopScreen();
 	}
 
