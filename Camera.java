@@ -13,7 +13,7 @@ public class Camera extends Particle {
 	private Screen screen;
 
 	public static final double TERMINAL_RATIO = 2; // value of (height / width) for a character on the terminal
-	public static final char[] BRIGHTNESS_MAP = {'#'}; // length can be anything
+	public static final char[] BRIGHTNESS_MAP = {'\u2588'}; // length can be anything
 	public static final TextCharacter VOID_CHARACTER = new TextCharacter(' ');
 
 	// the Camera accepts a Screen object on which it will operate
