@@ -13,15 +13,7 @@ public class Camera extends Particle {
 	private Screen screen;
 
 	public static final double TERMINAL_RATIO = 2; // value of (height / width) for a character on the terminal
-	public static final TextCharacter[] BRIGHTNESS_MAP = {
-		new TextCharacter('#'),
-		new TextCharacter('#'),
-		new TextCharacter('#'),
-		new TextCharacter('#'),
-		new TextCharacter('#'),
-		new TextCharacter('#'),
-		new TextCharacter('#')
-	}; // length can be anything
+	public static final char[] BRIGHTNESS_MAP = {'#'}; // length can be anything
 	public static final TextCharacter VOID_CHARACTER = new TextCharacter(' ');
 
 	public Camera(Screen screen) {
@@ -78,11 +70,19 @@ public class Camera extends Particle {
 		}
 	}
 
+	private TextCharacter displayChar(double dot, TextColor color) { // dot is the dot product result indicating brightness
+		return new TextCharacter(
+			BRIGHTNESS_MAP[(int)(dot == 1 ? BRIGHTNESS_MAP.length-1 : dot*BRIGHTNESS_MAP.length)],
+			color,
+			TextColor.ANSI.BLACK // temporary. This should use ASCII blocks later on
+		);
+	}
+
 	public void render(Triangle tri) {
 		double d = Math.abs(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
 		// 1 means head-on, 0 means barely looking down the side
 
-		TextCharacter displaychar = new TextCharacter(BRIGHTNESS_MAP[(int)(d == 1 ? BRIGHTNESS_MAP.length-1 : d*BRIGHTNESS_MAP.length)]);
+		TextCharacter displaychar = displayChar(d, tri.color());
 
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {

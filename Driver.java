@@ -15,11 +15,12 @@ public class Driver {
 		Camera cam = new Camera(screen);
 		cam.setPos(new Vector(-2, 0, 0));
 
-		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1));
+		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1), TextColor.ANSI.GREEN);
 
 		for (int i = 0; i < 1000; i++) {
 			cam.clearBuffer();
 			cam.render(tri);
+			tri = tri.translate(new Vector(0, 0.001, 0.001));
 			cam.display();
 		}
 
