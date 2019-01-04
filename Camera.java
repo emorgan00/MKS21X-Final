@@ -1,3 +1,6 @@
+import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.screen.*;
+
 public class Camera extends Particle {
 
 	private int width,height;
@@ -5,19 +8,32 @@ public class Camera extends Particle {
 
 	private Vector[][] cast; // an array of vectors which are casted from pos, each representing one pixel.
 	private double[][] zbuffer; // for z-buffering
-	private String[][] displaybuffer; // holds what will be printed
+	private TextCharacter[][] displaybuffer; // holds what will be printed
+	private Screen screen;
 
 	public static final double TERMINAL_RATIO = 2; // value of (height / width) for a character on the terminal
-	static public final String[] BRIGHTNESS_MAP = {"░","░","▒","▒","▓","▓","█"}; // length can be anything
+	public static final TextCharacter[] BRIGHTNESS_MAP = {
+		new TextCharacter('#'),
+		new TextCharacter('#'),
+		new TextCharacter('#'),
+		new TextCharacter('#'),
+		new TextCharacter('#'),
+		new TextCharacter('#'),
+		new TextCharacter('#')
+	}; // length can be anything
+	public static final TextCharacter VOID_CHARACTER = new TextCharacter(' ');
 
-	public Camera(int height, int width) {
+	public Camera(Screen screen) {
 		super(Vector.ZERO, Vector.UNIT_X, Vector.UNIT_Y);
+		TerminalSize size = screen.getTerminalSize();
+		
 		this.scale = 0.5; // arbitrarily 45 degrees in each direction
-		this.height = height;
-		this.width = width;
+		this.height = size.getRows();
+		this.width = size.getColumns();
 		this.cast = new Vector[height][width];
 		this.zbuffer = new double[height][width];
-		this.displaybuffer = new String[height][width];
+		this.displaybuffer = new TextCharacter[height][width];
+		this.screen = screen;
 		recast();
 	}
 
@@ -63,7 +79,7 @@ public class Camera extends Particle {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
 				zbuffer[h][w] = Double.POSITIVE_INFINITY;
-				displaybuffer[h][w] = " ";
+				displaybuffer[h][w] = null;
 			}
 		}
 	}
@@ -72,7 +88,7 @@ public class Camera extends Particle {
 		double d = Math.abs(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
 		// 1 means head-on, 0 means barely looking down the side
 
-		String displaychar = BRIGHTNESS_MAP[(int)(d == 1 ? BRIGHTNESS_MAP.length-1 : d*BRIGHTNESS_MAP.length)];
+		TextCharacter displaychar = new TextCharacter(BRIGHTNESS_MAP[(int)(d == 1 ? BRIGHTNESS_MAP.length-1 : d*BRIGHTNESS_MAP.length)]);
 
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
@@ -88,10 +104,9 @@ public class Camera extends Particle {
 	public void display() {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
-				String ch = displaybuffer[h][w];
-				System.out.print(ch);
+				TextCharacter ch = displaybuffer[h][w];
+				screen.setCharacter(w, h, ch);
 			}
-			System.out.println();
 		}
 	}
 
