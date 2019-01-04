@@ -17,11 +17,12 @@ public class Driver {
 
 		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1), TextColor.ANSI.GREEN);
 
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10000; i++) {
 			cam.clearBuffer();
 			cam.render(tri);
 			tri = tri.translate(new Vector(0, 0.001, 0.001));
 			cam.display();
+			cam.doResizeIfNecessary();
 		}
 
 		Thread.sleep(1000);

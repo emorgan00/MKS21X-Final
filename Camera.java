@@ -16,6 +16,8 @@ public class Camera extends Particle {
 	public static final char[] BRIGHTNESS_MAP = {'#'}; // length can be anything
 	public static final TextCharacter VOID_CHARACTER = new TextCharacter(' ');
 
+	// the Camera accepts a Screen object on which it will operate
+
 	public Camera(Screen screen) {
 		super(Vector.ZERO, Vector.UNIT_X, Vector.UNIT_Y);
 		TerminalSize size = screen.getTerminalSize();
@@ -28,6 +30,18 @@ public class Camera extends Particle {
 		this.displaybuffer = new TextCharacter[height][width];
 		this.screen = screen;
 		recast();
+	}
+
+	public boolean doResizeIfNecessary() { // returns true if the screen was resized
+		TerminalSize size = screen.doResizeIfNecessary();
+		if (size == null) return false;
+		this.height = size.getRows();
+		this.width = size.getColumns();
+		this.cast = new Vector[height][width];
+		this.zbuffer = new double[height][width];
+		this.displaybuffer = new TextCharacter[height][width];
+		recast();
+		return true;
 	}
 
 	public String toString() {
