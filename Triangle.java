@@ -45,7 +45,7 @@ public class Triangle {
 	public boolean contains(Vector r) { // returns true if the point lies inside the triangular prism created by extending this triangle
 		Triangle moved = this.translateInverse(r);
 		Vector x = moved.a.crossProduct(moved.b);
-		return x.dotProduct(moved.b.crossProduct(moved.c)) >= 0 && x.dotProduct(moved.c.crossProduct(moved.a)) >= 0;
+		return x.dotProduct(moved.b.crossProduct(moved.c)) > 0 && x.dotProduct(moved.c.crossProduct(moved.a)) > 0;
 	}
 
 }

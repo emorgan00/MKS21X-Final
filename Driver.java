@@ -13,13 +13,15 @@ public class Driver {
 		screen.startScreen();
 
 		Camera cam = new Camera(screen);
-		cam.setPos(new Vector(-6, 0, 0));
+		cam.setPos(new Vector(-2, 0, 0));
 
 		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1));
 
-		cam.clearBuffer();
-		cam.render(tri);
-		cam.display();
+		for (int i = 0; i < 1000; i++) {
+			cam.clearBuffer();
+			cam.render(tri);
+			cam.display();
+		}
 
 		Thread.sleep(1000);
 		screen.stopScreen();
