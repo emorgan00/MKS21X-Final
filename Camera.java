@@ -86,6 +86,7 @@ public class Camera extends Particle {
 		}
 	}
 
+	// returns the character which should be put on the screen, given a brightness and color
 	private TextCharacter displayChar(double dot, TextColor color) { // dot is the dot product result indicating brightness
 		return new TextCharacter(
 			BRIGHTNESS_MAP[(int)(dot == 1 ? BRIGHTNESS_MAP.length-1 : dot*BRIGHTNESS_MAP.length)],
@@ -94,6 +95,7 @@ public class Camera extends Particle {
 		);
 	}
 
+	// renders a triangle to the displaybuffer and zbuffer
 	public void render(Triangle tri) {
 		double d = Math.abs(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
 		// 1 means head-on, 0 means barely looking down the side
@@ -111,12 +113,14 @@ public class Camera extends Particle {
 		}
 	}
 
+	// renders a shape by iteratively rendering its triangles
 	public void render(Shape shape) {
 		for (Triangle face : shape.getFaces()) {
 			render(face);
 		}
 	}
 
+	// updates the terminal screen with the displaybuffer
 	public void display() throws IOException {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {

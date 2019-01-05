@@ -5,6 +5,7 @@ public class Shape extends Particle {
 
 	private ArrayList<Triangle> faces;
 
+	// Shape are instantiated without any faces. Add Triangles to the Shape with addTriangle()
 	public Shape(Vector pos, Vector dir, Vector normal) {
 		super(pos, dir, normal);
 		faces = new ArrayList<>();
