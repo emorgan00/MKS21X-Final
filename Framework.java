@@ -12,8 +12,6 @@ public class Framework {
 	private static Camera camera;
 	private static ArrayList<Shape> objects;
 
-	private static final double MILLIS_PER_FRAME = 5.0;
-
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
 		camera = new Camera(screen);
@@ -29,14 +27,14 @@ public class Framework {
 		objects.add(cube);
 
 		while (true) {
-			double dt = (int)(System.currentTimeMillis()-stime) / MILLIS_PER_FRAME;
+			double dt = (int)(System.currentTimeMillis()-stime);
 			stime = System.currentTimeMillis();
 
 			// clock is the index of the frame we are on.
-			// dt is the number of tick-equivalents passed since the last tick.
+			// dt is the number of millis passed since the last tick.
 			if (++clock > 1000) break;
 			System.out.println(dt);
-			cube.swivel(0.01*dt);
+			cube.rotate(new Vector(3, 8, 3).unitize(), 0.01*dt);
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();
@@ -44,8 +42,6 @@ public class Framework {
 				camera.render(obj);
 			}
 			camera.display();
-			// ensuring that frames are consistent length:
-			while (System.currentTimeMillis()-stime < MILLIS_PER_FRAME) {}
 		}
 		screen.stopScreen();
 	}
