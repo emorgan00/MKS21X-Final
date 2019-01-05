@@ -27,6 +27,8 @@ public class Framework {
 		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(255, 255, 255));
 		objects.add(cube);
 
+		boolean rot = false;
+
 		while (true) {
 			dt = (int)(System.currentTimeMillis()-stime);
 			stime = System.currentTimeMillis();
@@ -34,8 +36,10 @@ public class Framework {
 			// clock is the index of the frame we are on.
 			// dt is the number of millis passed since the last tick.
 			if (clock > 1000) break;
-			cube.rotate(new Vector(1, 1, 1).unitize(), 0.001*dt);
-			System.out.println(screen.pollInput());
+			if (screen.pollInput() != null) rot = !rot;
+
+			if (rot) cube.rotate(new Vector(3, 2, 1).unitize(), 0.001*dt);
+			else cube.rotate(new Vector(3, 2, 1).unitize(), -0.001*dt);
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();
