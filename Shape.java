@@ -50,6 +50,11 @@ public class Shape extends Particle {
 		}
 	}
 
+	public void swivel(double angle) {
+		// same as rotate(), but we just rotate around our normal axis
+		rotate(normal(), angle);
+	}
+
 	// Shortcuts for common shapes:
 
 	public static Shape Cube(Vector pos, double radius, TextColor.RGB color) {

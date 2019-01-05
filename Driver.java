@@ -15,15 +15,12 @@ public class Driver {
 		Camera cam = new Camera(screen);
 		cam.setPos(new Vector(-3, 0, 0));
 
-		Shape t = Shape.Tetrahedron(new Vector(0, 0, -1), 1.3, new TextColor.RGB(230, 230, 255));
-		Shape c = Shape.Cube(new Vector(0, 0, 1), 0.7, new TextColor.RGB(255, 230, 230));
+		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(240, 240, 255));
 
 		for (int i = 0; i < 1000; i++) {
 			cam.clearBuffer();
-			cam.render(t);
-			t.rotate(new Vector(0.3, 0.8, 0.3).unitize(), 0.05);
-			cam.render(c);
-			c.rotate(new Vector(0.3, 0.8, 0.3).unitize(), 0.05);
+			cam.render(cube);
+			cube.swivel(0.05);
 			cam.display();
 			cam.doResizeIfNecessary();
 		}
