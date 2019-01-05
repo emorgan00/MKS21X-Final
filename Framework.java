@@ -12,7 +12,7 @@ public class Framework {
 	private static Camera camera;
 	private static ArrayList<Shape> objects;
 
-	private static final int MILLIS_PER_FRAME = 100;
+	private static final double MILLIS_PER_FRAME = 5.0;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
@@ -20,15 +20,23 @@ public class Framework {
 		objects = new ArrayList<>(); // any object added here will be drawn
 
 		screen.startScreen();
-		long clock = 0;
+		long clock = -1;
+		long stime = System.currentTimeMillis();
 
-		setup();
+		// setup
+		camera.setPos(new Vector(-3, 0, 0));
+		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(240, 240, 255));
+		objects.add(cube);
 
 		while (true) {
-			long stime = System.currentTimeMillis();
+			double dt = (int)(System.currentTimeMillis()-stime) / MILLIS_PER_FRAME;
+			stime = System.currentTimeMillis();
 
-			// actual code goes here:
-			if (!tick(clock)) break;
+			// clock is the index of the frame we are on.
+			// dt is the number of tick-equivalents passed since the last tick.
+			if (++clock > 1000) break;
+			System.out.println(dt);
+			cube.swivel(0.01*dt);
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();
@@ -36,21 +44,10 @@ public class Framework {
 				camera.render(obj);
 			}
 			camera.display();
-			clock++;
 			// ensuring that frames are consistent length:
 			while (System.currentTimeMillis()-stime < MILLIS_PER_FRAME) {}
 		}
 		screen.stopScreen();
-	}
-
-	public static void setup() { // run at program initialization.
-
-	}
-
-	public static boolean tick(long clock) { // run at the start of every frame. return false to exit.
-		if (clock > 100) return false;
-
-		return true;
 	}
 
 }
