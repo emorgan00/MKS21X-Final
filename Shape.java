@@ -29,15 +29,15 @@ public class Shape extends Particle {
 	public void setPos(Vector pos) {
 		super.setPos(pos);
 		Vector rel = this.pos().subtract(pos);
-		for (Triangle face : faces) {
-			face = face.translate(rel);
+		for (int i = 0; i < faces.size(); i++) {
+			faces.set(i, faces.get(i).translate(rel));
 		}
 	}
 
 	public void translate(Vector motion) {
 		super.translate(motion);
-		for (Triangle face : faces) {
-			face = face.translate(motion);
+		for (int i = 0; i < faces.size(); i++) {
+			faces.set(i, faces.get(i).translate(motion));
 		}
 	}
 

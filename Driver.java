@@ -18,16 +18,20 @@ public class Driver {
 		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1), TextColor.ANSI.GREEN);
 		Triangle tri2 = new Triangle(new Vector(0, 1, 1), new Vector(0, 1, 0), new Vector(0, 0, 1), TextColor.ANSI.RED);
 
-		for (int i = 0; i < 3000; i++) {
+		Shape s = new Shape(Vector.ZERO, Vector.UNIT_X, Vector.UNIT_Y);
+
+		s.addTriangle(tri);
+		s.addTriangle(tri2);
+
+		for (int i = 0; i < 1000; i++) {
 			cam.clearBuffer();
-			cam.render(tri);
-			cam.render(tri2);
-			tri = tri.translate(new Vector(0, 0.0005, 0.0005));
-			tri2 = tri2.translate(new Vector(0, 0.0005, 0.0005));
+			cam.render(s);
+			System.out.println(s.getFaces().get(0).center());
+			s.translate(new Vector(0, 0.0005, 0.0005));
 			cam.display();
 			cam.doResizeIfNecessary();
 		}
-		
+
 		screen.stopScreen();
 	}
 
