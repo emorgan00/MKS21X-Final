@@ -93,9 +93,9 @@ public class Camera extends Particle {
 	// returns the character which should be put on the screen, given a brightness and color
 	private TextCharacter displayChar(double dot, TextColor.RGB c) { // dot is the dot product result indicating brightness
 		return new TextCharacter(
-			'\u2588',
-			new TextColor.RGB((int)(c.getRed()*dot), (int)(c.getBlue()*dot), (int)(c.getGreen()*dot)),
-			TextColor.ANSI.BLACK // temporary. This should use ASCII blocks later on
+			' ',
+			TextColor.ANSI.BLACK,
+			new TextColor.RGB((int)(c.getRed()*dot), (int)(c.getGreen()*dot), (int)(c.getBlue()*dot))
 		);
 	}
 
