@@ -111,6 +111,12 @@ public class Camera extends Particle {
 		}
 	}
 
+	public void render(Shape shape) {
+		for (Triangle face : shape.getFaces()) {
+			render(face);
+		}
+	}
+
 	public void display() throws IOException {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
