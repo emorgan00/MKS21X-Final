@@ -32,4 +32,9 @@ public abstract class Particle { // like a vector, but mutable and has both posi
 		pos = pos.add(motion);
 	}
 
+	public void rotate(Vector axis, double angle) {
+		dir = dir.rotate(axis, angle);
+		normal = normal.rotate(axis, angle);
+	}
+
 }

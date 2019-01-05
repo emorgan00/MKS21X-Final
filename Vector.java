@@ -72,4 +72,31 @@ public class Vector {
 		return m; // note: this not the true distance, it is the factor by which the dir must be scaled to hit the triangle.
 	}
 
+	public Vector rotate(Vector axis, double angle) { // rotate the vector about a given UNIT vector
+		// credit to a paper from 1992 by Paul Bourke for helping me with this when I was stuck
+		double d = Math.sqrt(axis.y*axis.y+axis.z*axis.z); // length along the yz plane
+		double nx, ny, nz, tx, ty; // augmented values of x, y, z. tx, ty are storage variables.
+
+		if (d != 0) {
+			ny = (y*axis.z-z*axis.y)/d; // motion about x-axis
+			nz = (y*axis.y+z*axis.z)/d;
+		} else {
+			ny = y;
+			nz = z;
+		}
+		nx = x*d-nz*axis.x; // motion about the y-axis
+		nz = x*axis.x+nz*d;
+		tx = nx*Math.cos(angle)-ny*Math.sin(angle); // motion about the z-axis
+		ny = nx*Math.sin(angle)+ny*Math.cos(angle);
+		nx = tx*d+nz*axis.x; // reverse motion about the y-axis
+		nz = nz*d-tx*axis.x;
+		if (d != 0) {
+			ty = (ny*axis.z+nz*axis.y)/d; // reverse motion about the x-axis
+			nz = (nz*axis.z-ny*axis.y)/d;
+			ny = ty;
+		}
+		
+		return new Vector(nx, ny, nz); // finally, we are done
+	}
+
 }

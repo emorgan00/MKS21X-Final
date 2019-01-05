@@ -58,4 +58,12 @@ public class Triangle {
 		return x.dotProduct(moved.b.crossProduct(moved.c)) > 0 && x.dotProduct(moved.c.crossProduct(moved.a)) > 0;
 	}
 
+	public Triangle rotate(Vector pivot, Vector axis, double angle) { // rotate about a pivot point
+		return new Triangle(
+			a.subtract(pivot).rotate(axis, angle).add(pivot), 
+			b.subtract(pivot).rotate(axis, angle).add(pivot), 
+			c.subtract(pivot).rotate(axis, angle).add(pivot),
+			color);
+	}
+
 }

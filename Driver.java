@@ -14,13 +14,14 @@ public class Driver {
 
 		Camera cam = new Camera(screen);
 		cam.setPos(new Vector(-3, 0, 0));
+		cam.rotate(Vector.UNIT_Z, 0.0001);
 
 		Shape s = Shape.Cube(Vector.ZERO, 0.6, TextColor.ANSI.RED);
 
 		for (int i = 0; i < 1000; i++) {
 			cam.clearBuffer();
 			cam.render(s);
-			s.translate(new Vector(0, 0, 0.01));
+			s.rotate(new Vector(0.3, 0.8, 0.3).unitize(), 0.05);
 			cam.display();
 			cam.doResizeIfNecessary();
 		}

@@ -65,6 +65,11 @@ public class Camera extends Particle {
 		clearBuffer();
 	}
 
+	public void rotate(Vector axis, double angle) {
+		super.rotate(axis, angle);
+		recast();
+	}
+
 	public void recast() { // update cast[][] vectors
 		Vector hnorm = dir().crossProduct(normal()).unitize(); // offset unit vector in horizontal direction (vertical unit vector is just the normal)
 		double woffset = width/2; // amount to shift horizontally to remain centered

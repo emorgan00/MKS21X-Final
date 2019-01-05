@@ -43,6 +43,13 @@ public class Shape extends Particle {
 		}
 	}
 
+	public void rotate(Vector axis, double angle) {
+		super.rotate(axis, angle);
+		for (int i = 0; i < faces.size(); i++) {
+			faces.set(i, faces.get(i).rotate(pos(), axis, angle));
+		}
+	}
+
 	// Shortcuts for common shapes:
 
 	public static Shape Cube(Vector pos, double radius, TextColor color) {
