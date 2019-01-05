@@ -18,4 +18,27 @@ public class Shape extends Particle {
 		return new String(out);
 	}
 
+	public void addTriangle(Triangle tri) {
+		faces.add(tri);
+	}
+
+	public ArrayList<Triangle> getFaces() {
+		return faces;
+	}
+
+	public void setPos(Vector pos) {
+		super.setPos(pos);
+		Vector rel = this.pos().subtract(pos);
+		for (Triangle face : faces) {
+			face = face.translate(rel);
+		}
+	}
+
+	public void translate(Vector motion) {
+		super.translate(motion);
+		for (Triangle face : faces) {
+			face = face.translate(motion);
+		}
+	}
+
 }
