@@ -15,19 +15,12 @@ public class Driver {
 		Camera cam = new Camera(screen);
 		cam.setPos(new Vector(-3, 0, 0));
 
-		Triangle tri = new Triangle(new Vector(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1), TextColor.ANSI.GREEN);
-		Triangle tri2 = new Triangle(new Vector(0, 1, 1), new Vector(0, 1, 0), new Vector(0, 0, 1), TextColor.ANSI.RED);
-
-		Shape s = new Shape(Vector.ZERO, Vector.UNIT_X, Vector.UNIT_Y);
-
-		s.addTriangle(tri);
-		s.addTriangle(tri2);
+		Shape s = Shape.Cube(Vector.ZERO, 0.6, TextColor.ANSI.RED);
 
 		for (int i = 0; i < 1000; i++) {
 			cam.clearBuffer();
 			cam.render(s);
-			System.out.println(s.getFaces().get(0).center());
-			s.translate(new Vector(0, 0.0005, 0.0005));
+			s.translate(new Vector(0, 0, 0.01));
 			cam.display();
 			cam.doResizeIfNecessary();
 		}
