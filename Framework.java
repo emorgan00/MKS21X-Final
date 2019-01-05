@@ -11,6 +11,7 @@ public class Framework {
 	public static Screen screen;
 	public static Camera camera;
 	public static ArrayList<Shape> objects;
+	public static final int MILLIS_PER_FRAME = 100;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
@@ -18,19 +19,25 @@ public class Framework {
 		objects = new ArrayList<>();
 
 		screen.startScreen();
-		while (tick()) {
+		long clock = 0;
+
+		while (true) {
+			long stime = System.currentTimeMillis();
+
+			// actual code goes here
+			if (clock > 1000) break;
+
+			camera.doResizeIfNecessary();
 			camera.clearBuffer();
 			for (Shape obj : objects) {
 				camera.render(obj);
 			}
 			camera.display();
-			camera.doResizeIfNecessary();
+			clock++;
+			// ensuring that frames are consistent length:
+			while (System.currentTimeMillis()-stime < MILLIS_PER_FRAME) {}
 		}
 		screen.stopScreen();
-	}
-
-	public static boolean tick() { // return false to exit the program. otherwise return true
-		return false;
 	}
 
 }
