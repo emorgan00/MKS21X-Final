@@ -32,7 +32,9 @@ public class Camera extends Particle {
 		recast();
 	}
 
-	public boolean doResizeIfNecessary() { // returns true if the screen was resized
+	public boolean doResizeIfNecessary() {
+		// returns true if the Screen was resized
+		// will update the Screen which the Camera holds
 		TerminalSize size = screen.doResizeIfNecessary();
 		if (size == null) return false;
 		this.height = size.getRows();
