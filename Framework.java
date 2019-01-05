@@ -11,8 +11,7 @@ public class Framework {
 	private static Screen screen;
 	private static Camera camera;
 	private static ArrayList<Shape> objects;
-	private static int dt;
-	private static int clock;
+	private static int dt, clock;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
@@ -35,8 +34,8 @@ public class Framework {
 			// clock is the index of the frame we are on.
 			// dt is the number of millis passed since the last tick.
 			if (clock > 1000) break;
-			System.out.println(dt);
 			cube.rotate(new Vector(1, 1, 1).unitize(), 0.001*dt);
+			System.out.println(screen.pollInput());
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();

@@ -17,7 +17,7 @@ public class Triangle {
 		this.color = color;
 	}
 
-	public Triangle(Vector a, Vector b, Vector c, Vector normal, Vector center, TextColor.RGB color) {
+	private Triangle(Vector a, Vector b, Vector c, Vector normal, Vector center, TextColor.RGB color) {
 		// this is for use in Triangle.translate(): we don't want to recompute normals/centers
 		this.a = a;
 		this.b = b;
