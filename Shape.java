@@ -81,4 +81,21 @@ public class Shape extends Particle {
 		return shape;
 	}
 
+	public static Shape Tetrahedron(Vector pos, double radius, TextColor.RGB color) {
+
+		Shape shape = new Shape(pos, Vector.UNIT_X, Vector.UNIT_Y);
+
+		Vector a = pos.add(new Vector(0, radius, 0));
+		Vector b = pos.add(new Vector(-radius*0.866, -radius*0.5, 0));
+		Vector c = pos.add(new Vector(radius*0.433, -radius*0.5, -radius*0.75));
+		Vector d = pos.add(new Vector(radius*0.433, -radius*0.5, radius*0.75));
+
+		shape.addTriangle(new Triangle(a, b, c, color));
+		shape.addTriangle(new Triangle(b, c, d, color));
+		shape.addTriangle(new Triangle(c, d, a, color));
+		shape.addTriangle(new Triangle(d, a, b, color));
+
+		return shape;
+	}
+
 }

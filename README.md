@@ -1,4 +1,4 @@
-__development log:__
+__Development Log:__
 
 _Day 1 (2019-01-03):_
 Added basic classes: Vector, Triangle, Particle, Camera
@@ -11,3 +11,4 @@ Added Shape class.
 _Day 3 (2019-01-05):_
 Added 3D rotation algorithm for Vectors.
 Added lighting when rendering faces.
+The expected product is now complete. Running Driver.java will show a rotating cube.

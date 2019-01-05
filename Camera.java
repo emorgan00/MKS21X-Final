@@ -94,7 +94,7 @@ public class Camera extends Particle {
 	private TextCharacter displayChar(double dot, TextColor.RGB c) { // dot is the dot product result indicating brightness
 		return new TextCharacter(
 			' ',
-			TextColor.ANSI.BLACK,
+			TextColor.ANSI.DEFAULT,
 			new TextColor.RGB((int)(c.getRed()*dot), (int)(c.getGreen()*dot), (int)(c.getBlue()*dot))
 		);
 	}
