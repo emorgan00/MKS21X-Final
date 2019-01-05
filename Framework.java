@@ -11,6 +11,8 @@ public class Framework {
 	private static Screen screen;
 	private static Camera camera;
 	private static ArrayList<Shape> objects;
+	private static int dt;
+	private static int clock;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
@@ -18,23 +20,23 @@ public class Framework {
 		objects = new ArrayList<>(); // any object added here will be drawn
 
 		screen.startScreen();
-		long clock = -1;
+		clock = -1;
 		long stime = System.currentTimeMillis();
 
 		// setup
 		camera.setPos(new Vector(-3, 0, 0));
-		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(240, 240, 255));
+		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(255, 255, 255));
 		objects.add(cube);
 
 		while (true) {
-			double dt = (int)(System.currentTimeMillis()-stime);
+			dt = (int)(System.currentTimeMillis()-stime);
 			stime = System.currentTimeMillis();
 
 			// clock is the index of the frame we are on.
 			// dt is the number of millis passed since the last tick.
-			if (++clock > 1000) break;
+			if (clock > 1000) break;
 			System.out.println(dt);
-			cube.rotate(new Vector(3, 8, 3).unitize(), 0.01*dt);
+			cube.rotate(new Vector(1, 1, 1).unitize(), 0.001*dt);
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();
@@ -42,6 +44,7 @@ public class Framework {
 				camera.render(obj);
 			}
 			camera.display();
+			clock++;
 		}
 		screen.stopScreen();
 	}
