@@ -16,7 +16,7 @@ public class Driver {
 		cam.setPos(new Vector(-3, 0, 0));
 		cam.rotate(Vector.UNIT_Z, 0.0001);
 
-		Shape s = Shape.Cube(Vector.ZERO, 0.6, TextColor.ANSI.RED);
+		Shape s = Shape.Cube(Vector.ZERO, 0.6, new TextColor.RGB(255, 0, 0));
 
 		for (int i = 0; i < 1000; i++) {
 			cam.clearBuffer();

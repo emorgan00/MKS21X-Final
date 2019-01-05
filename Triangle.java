@@ -4,11 +4,11 @@ public class Triangle {
 	
 	private Vector a, b, c;
 	private Vector normal, center;
-	private TextColor color;
+	private TextColor.RGB color;
 
 	public static final double oneThird = 1./3;
 
-	public Triangle(Vector a, Vector b, Vector c, TextColor color) {
+	public Triangle(Vector a, Vector b, Vector c, TextColor.RGB color) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -17,7 +17,7 @@ public class Triangle {
 		this.color = color;
 	}
 
-	public Triangle(Vector a, Vector b, Vector c, Vector normal, Vector center, TextColor color) {
+	public Triangle(Vector a, Vector b, Vector c, Vector normal, Vector center, TextColor.RGB color) {
 		// this is for use in Triangle.translate(): we don't want to recompute normals/centers
 		this.a = a;
 		this.b = b;
@@ -40,7 +40,7 @@ public class Triangle {
 		return this.center;
 	}
 
-	public TextColor color() {
+	public TextColor.RGB color() {
 		return this.color;
 	}
 

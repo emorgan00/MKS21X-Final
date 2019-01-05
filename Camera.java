@@ -13,7 +13,6 @@ public class Camera extends Particle {
 	private Screen screen;
 
 	public static final double TERMINAL_RATIO = 2; // value of (height / width) for a character on the terminal
-	public static final char[] BRIGHTNESS_MAP = {'\u2591', '\u2591', '\u2591', '\u2592', '\u2592', '\u2593', '\u2593', '\u2588'}; // length can be anything
 	public static final TextCharacter VOID_CHARACTER = new TextCharacter(' ');
 
 	// the Camera accepts a Screen object on which it will operate
@@ -92,10 +91,10 @@ public class Camera extends Particle {
 	}
 
 	// returns the character which should be put on the screen, given a brightness and color
-	private TextCharacter displayChar(double dot, TextColor color) { // dot is the dot product result indicating brightness
+	private TextCharacter displayChar(double dot, TextColor.RGB c) { // dot is the dot product result indicating brightness
 		return new TextCharacter(
-			BRIGHTNESS_MAP[(int)(dot == 1 ? BRIGHTNESS_MAP.length-1 : dot*BRIGHTNESS_MAP.length)],
-			color,
+			'\u2588',
+			new TextColor.RGB((int)(c.getRed()*dot), (int)(c.getBlue()*dot), (int)(c.getGreen()*dot)),
 			TextColor.ANSI.BLACK // temporary. This should use ASCII blocks later on
 		);
 	}
@@ -105,14 +104,12 @@ public class Camera extends Particle {
 		double d = Math.abs(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
 		// 1 means head-on, 0 means barely looking down the side
 
-		TextCharacter displaychar = displayChar(d, tri.color());
-
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
 				double dist = Vector.distanceToTriangle(pos(), cast[h][w], tri);
 				if (dist > 0 && dist < zbuffer[h][w]) {
 					zbuffer[h][w] = dist;
-					displaybuffer[h][w] = displaychar;
+					displaybuffer[h][w] = displayChar(d, tri.color());
 				}
 			}
 		}
@@ -129,8 +126,7 @@ public class Camera extends Particle {
 	public void display() throws IOException {
 		for (int h = 0; h < height; h++) {
 			for (int w = 0; w < width; w++) {
-				TextCharacter ch = displaybuffer[h][w];
-				screen.setCharacter(w, h, ch);
+				screen.setCharacter(w, h, displaybuffer[h][w]);
 			}
 		}
 		screen.refresh();

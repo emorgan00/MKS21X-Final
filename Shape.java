@@ -52,7 +52,7 @@ public class Shape extends Particle {
 
 	// Shortcuts for common shapes:
 
-	public static Shape Cube(Vector pos, double radius, TextColor color) {
+	public static Shape Cube(Vector pos, double radius, TextColor.RGB color) {
 
 		Shape shape = new Shape(pos, Vector.UNIT_X, Vector.UNIT_Y);
 
