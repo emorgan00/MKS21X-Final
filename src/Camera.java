@@ -101,7 +101,8 @@ public class Camera extends Particle {
 
 	// renders a triangle to the displaybuffer and zbuffer
 	public void render(Triangle tri) {
-		double d = Math.abs(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
+		double d = Vector.UNIT_Y.dotProduct(tri.normal().unitize()); // number from 0 to 1, representing how much we are "facing" the triangle
+		d = d > 0 ? d : 0;
 		// 1 means head-on, 0 means barely looking down the side
 
 		for (int h = 0; h < height; h++) {
