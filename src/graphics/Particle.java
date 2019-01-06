@@ -30,6 +30,11 @@ public abstract class Particle { // like a vector, but mutable and has both posi
 		this.pos = pos;
 	}
 
+	public void setDir(Vector dir) {
+		this.dir = dir.unitize();
+		// note: this is not overridden by Shape/Camera.
+	}
+
 	public void translate(Vector motion) {
 		pos = pos.add(motion);
 	}
