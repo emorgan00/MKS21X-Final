@@ -1,3 +1,5 @@
+package graphics;
+
 public abstract class Particle { // like a vector, but mutable and has both position and direction
 
 	private Vector pos, dir, normal;

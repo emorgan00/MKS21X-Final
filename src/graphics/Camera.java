@@ -1,3 +1,4 @@
+package graphics;
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.screen.*;
 import java.io.IOException;

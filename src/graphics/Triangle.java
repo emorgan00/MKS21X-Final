@@ -1,3 +1,4 @@
+package graphics;
 import com.googlecode.lanterna.*;
 
 public class Triangle {

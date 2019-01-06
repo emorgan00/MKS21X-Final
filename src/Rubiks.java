@@ -7,31 +7,36 @@ import java.io.IOException;
 import java.util.concurrent.*;
 import graphics.*;
 
-public class Framework {
+public class Rubiks {
 
 	private static Screen screen;
 	private static Camera camera;
-	private static ArrayList<Shape> objects;
+	private static ArrayList<Shape> cubes;
 	private static int dt, clock;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
 		camera = new Camera(screen);
-		objects = new ArrayList<>(); // any object added here will be drawn
+		cubes = new ArrayList<>(); // any object added here will be drawn
 
 		screen.startScreen();
 		clock = -1;
 		long stime = System.currentTimeMillis();
 
 		// setup
-		camera.setPos(new Vector(-3, 0, 0));
+		camera.setPos(new Vector(-10, 6, 0));
+		camera.rotate(Vector.UNIT_Z, -Math.PI/6);
 		for (int x = -2; x < 3; x += 2) {
 			for (int y = -2; y < 3; y += 2) {
-				Shape cube = Shape.Cube(new Vector(0, x, y), 0.7, new TextColor.RGB(255, 255, 255));
-				objects.add(cube);
+				for (int z = -2; z < 3; z += 2) {
+					Shape cube = Shape.Cube(new Vector(x, y, z), 0.9, new TextColor.RGB((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+					cube.setPos(Vector.ZERO);
+					cubes.add(cube);
+				}
 			}
 		}
 
+		double anglebuffer = 0;
 		Vector rot = Vector.UNIT_Z;
 
 		while (true) {
@@ -41,25 +46,31 @@ public class Framework {
 
 			// clock is the index of the frame we are on.
 			// dt is the number of millis passed since the last tick.
-			if (key != null) {
+			if (key != null && anglebuffer <= 0) {
 				if      (key.getKeyType() == KeyType.Escape)     break;
-				else if (key.getKeyType() == KeyType.ArrowRight) rot = Vector.UNIT_X;
-				else if (key.getKeyType() == KeyType.ArrowLeft)  rot = Vector.UNIT_X.scale(-1);
+				else if (key.getKeyType() == KeyType.ArrowRight) rot = Vector.UNIT_Y;
+				else if (key.getKeyType() == KeyType.ArrowLeft)  rot = Vector.UNIT_Y.scale(-1);
 				else if (key.getKeyType() == KeyType.ArrowDown)  rot = Vector.UNIT_Z;
 				else if (key.getKeyType() == KeyType.ArrowUp)    rot = Vector.UNIT_Z.scale(-1);
-				else if (key.getCharacter() == 'w') camera.translate(Vector.UNIT_X.scale(0.5));
-				else if (key.getCharacter() == 's') camera.translate(Vector.UNIT_X.scale(-0.5));
-				else if (key.getCharacter() == 'd') camera.translate(Vector.UNIT_Z.scale(0.5));
-				else if (key.getCharacter() == 'a') camera.translate(Vector.UNIT_Z.scale(-0.5));
+				anglebuffer = Math.PI/2;
 			}
 
-			for (Shape cube : objects) {
-				cube.rotate(rot, 0.001*dt);
+			if (anglebuffer > 0) {
+				for (Shape obj : cubes) {
+					if (obj.pos().dotProduct(rot) > 0)
+						obj.rotate(rot, 0.01*dt);
+				}
+				anglebuffer -= 0.01*dt;
+				if (anglebuffer < 0) {
+					for (Shape obj : cubes) {
+						obj.rotate(rot, anglebuffer);
+					}
+				}
 			}
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();
-			for (Shape obj : objects) {
+			for (Shape obj : cubes) {
 				camera.render(obj);
 			}
 			camera.display();
