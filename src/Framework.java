@@ -1,6 +1,6 @@
 import java.util.*;
 import com.googlecode.lanterna.*;
-import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.input.*;
 import com.googlecode.lanterna.screen.*;
 import com.googlecode.lanterna.terminal.*;
 import java.io.IOException;
@@ -27,19 +27,24 @@ public class Framework {
 		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(255, 255, 255));
 		objects.add(cube);
 
-		boolean rot = false;
+		Vector rot = Vector.UNIT_Z;
 
 		while (true) {
+			KeyStroke key = screen.pollInput();
 			dt = (int)(System.currentTimeMillis()-stime);
 			stime = System.currentTimeMillis();
 
 			// clock is the index of the frame we are on.
 			// dt is the number of millis passed since the last tick.
-			if (clock > 1000) break;
-			if (screen.pollInput() != null) rot = !rot;
+			if (key != null) {
+				if      (key.getKeyType() == KeyType.Escape)     break;
+				else if (key.getKeyType() == KeyType.ArrowRight) rot = Vector.UNIT_X;
+				else if (key.getKeyType() == KeyType.ArrowLeft)  rot = Vector.UNIT_X.scale(-1);
+				else if (key.getKeyType() == KeyType.ArrowDown)  rot = Vector.UNIT_Z;
+				else if (key.getKeyType() == KeyType.ArrowUp)    rot = Vector.UNIT_Z.scale(-1);
+			}
 
-			if (rot) cube.rotate(new Vector(3, 2, 1).unitize(), 0.001*dt);
-			else cube.rotate(new Vector(3, 2, 1).unitize(), -0.001*dt);
+			cube.rotate(rot, 0.001*dt);
 
 			camera.doResizeIfNecessary();
 			camera.clearBuffer();
