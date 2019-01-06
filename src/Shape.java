@@ -38,6 +38,11 @@ public class Shape extends Particle implements Renderable {
 		}
 	}
 
+	// like setPos, except it doesn't move the faces.
+	public void setCenter(Vector pos) {
+		super.setPos(pos);
+	}
+
 	public void translate(Vector motion) {
 		super.translate(motion);
 		for (int i = 0; i < faces.size(); i++) {
