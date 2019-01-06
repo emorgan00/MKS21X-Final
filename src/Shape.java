@@ -71,17 +71,17 @@ public class Shape extends Particle {
 		Vector h = pos.add(new Vector(-radius, -radius, -radius));
 
 		shape.addTriangle(new Triangle(a, e, b, color));
-		shape.addTriangle(new Triangle(f, e, b, color));
+		shape.addTriangle(new Triangle(e, f, b, color));
 		shape.addTriangle(new Triangle(c, d, g, color));
-		shape.addTriangle(new Triangle(h, d, g, color));
+		shape.addTriangle(new Triangle(d, h, g, color));
 		shape.addTriangle(new Triangle(f, d, b, color));
-		shape.addTriangle(new Triangle(f, d, h, color));
-		shape.addTriangle(new Triangle(a, c, b, color));
+		shape.addTriangle(new Triangle(d, f, h, color));
+		shape.addTriangle(new Triangle(c, a, b, color));
 		shape.addTriangle(new Triangle(d, c, b, color));
-		shape.addTriangle(new Triangle(e, f, g, color));
+		shape.addTriangle(new Triangle(f, e, g, color));
 		shape.addTriangle(new Triangle(h, f, g, color));
 		shape.addTriangle(new Triangle(a, c, e, color));
-		shape.addTriangle(new Triangle(g, c, e, color));
+		shape.addTriangle(new Triangle(c, g, e, color));
 
 		return shape;
 	}
