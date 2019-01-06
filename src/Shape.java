@@ -1,7 +1,7 @@
 import java.util.*;
 import com.googlecode.lanterna.*;
 
-public class Shape extends Particle {
+public class Shape extends Particle implements Renderable {
 
 	private ArrayList<Triangle> faces;
 
