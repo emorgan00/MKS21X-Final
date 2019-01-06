@@ -102,7 +102,7 @@ public class Camera extends Particle {
 	// renders a triangle to the displaybuffer and zbuffer
 	public void render(Triangle tri) {
 		double d = Math.sqrt(dir().dotProduct(tri.normal().unitize())); // number from 0 to 1, representing how much we are "facing" the triangle
-		d = d > 0.2 ? d : d > 0 ? 0.2 : 0;
+		d = d > 0.2 ? d : 0.2;
 		// 1 means head-on, 0 means barely looking down the side
 
 		for (int h = 0; h < height; h++) {
@@ -117,10 +117,8 @@ public class Camera extends Particle {
 	}
 
 	// renders a shape by iteratively rendering its triangles
-	public void render(Renderable shape) {
-		for (Triangle face : shape.getFaces()) {
-			render(face);
-		}
+	public void render(Renderable obj) {
+		obj.render(this);
 	}
 
 	// updates the terminal screen with the displaybuffer

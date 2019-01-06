@@ -1,5 +1,5 @@
 import java.util.*;
 
 public interface Renderable {
-	public ArrayList<Triangle> getFaces();
+	public void render(Camera c);
 }

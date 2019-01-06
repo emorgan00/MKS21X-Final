@@ -24,8 +24,10 @@ public class Shape extends Particle implements Renderable {
 		faces.add(tri);
 	}
 
-	public ArrayList<Triangle> getFaces() {
-		return faces;
+	public void render(Camera c) {
+		for (Triangle face : faces) {
+			c.render(face);
+		}
 	}
 
 	public void setPos(Vector pos) {
