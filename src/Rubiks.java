@@ -46,9 +46,16 @@ public class Rubiks {
 		Triangle y0 = new Triangle(a, c, e, new TextColor.RGB(255, 255, 0));
 		Triangle y1 = new Triangle(c, g, e, new TextColor.RGB(255, 255, 0));
 
-		// setup the cube
+		// Forward View:
 		camera.setPos(new Vector(-10, 6, 0));
 		camera.rotate(Vector.UNIT_Z, -Math.PI/6);
+
+		// Diagonal View:
+		//camera.setPos(new Vector(-8, 6, 8));
+		//camera.rotate(Vector.UNIT_Z, -Math.PI/6);
+		//camera.rotate(Vector.UNIT_Y, Math.PI/4);
+
+		// setup the cube
 		for (int x = -2; x < 3; x += 2) {
 			for (int y = -2; y < 3; y += 2) {
 				for (int z = -2; z < 3; z += 2) {
