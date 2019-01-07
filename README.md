@@ -12,3 +12,6 @@ _Day 3 (2019-01-05):_
 Added 3D rotation algorithm for Vectors.
 Added lighting when rendering faces.
 The expected product is now complete. Running Driver.java will show a rotating cube.
+
+_Day 4 (2019-01-06):_
+Added the Rubik's Cube demo.

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.*;
 import graphics.*;
 
-public class Framework {
+public class SpinDemo {
 
 	private static Screen screen;
 	private static Camera camera;
@@ -25,12 +25,8 @@ public class Framework {
 
 		// setup
 		camera.setPos(new Vector(-3, 0, 0));
-		for (int x = -2; x < 3; x += 2) {
-			for (int y = -2; y < 3; y += 2) {
-				Shape cube = Shape.Cube(new Vector(0, x, y), 0.7, new TextColor.RGB(255, 255, 255));
-				objects.add(cube);
-			}
-		}
+		Shape cube = Shape.Cube(Vector.ZERO, 0.7, new TextColor.RGB(255, 255, 255));
+		objects.add(cube);
 
 		Vector rot = Vector.UNIT_Z;
 
@@ -53,8 +49,8 @@ public class Framework {
 				else if (key.getCharacter() == 'a') camera.translate(Vector.UNIT_Z.scale(-0.5));
 			}
 
-			for (Shape cube : objects) {
-				cube.rotate(rot, 0.001*dt);
+			for (Shape obj : objects) {
+				obj.rotate(rot, 0.001*dt);
 			}
 
 			camera.doResizeIfNecessary();
