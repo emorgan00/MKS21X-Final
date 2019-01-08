@@ -12,7 +12,7 @@ public class SpinDemo {
 	private static Screen screen;
 	private static Camera camera;
 	private static ArrayList<Shape> objects;
-	private static int dt, clock;
+	private static int dt;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
@@ -20,7 +20,6 @@ public class SpinDemo {
 		objects = new ArrayList<>(); // any object added here will be drawn
 
 		screen.startScreen();
-		clock = -1;
 		long stime = System.currentTimeMillis();
 
 		// setup
@@ -59,7 +58,6 @@ public class SpinDemo {
 				camera.render(obj);
 			}
 			camera.display();
-			clock++;
 		}
 		screen.stopScreen();
 	}

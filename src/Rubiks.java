@@ -12,7 +12,6 @@ public class Rubiks {
 	private static Screen screen;
 	private static Camera camera;
 	private static ArrayList<Shape> cubes;
-	private static int dt, clock;
 
 	public static void main(String[] args) throws IOException {
 		screen = new DefaultTerminalFactory().createScreen();
@@ -20,8 +19,8 @@ public class Rubiks {
 		cubes = new ArrayList<>(); // any object added here will be drawn
 
 		screen.startScreen();
-		clock = -1;
 		long stime = System.currentTimeMillis();
+		int dt;
 
 		// Setting up initial triangles
 		Vector a = new Vector(0.9, 0.9, 0.9);
@@ -158,7 +157,6 @@ public class Rubiks {
 				camera.render(obj);
 			}
 			camera.display();
-			clock++;
 		}
 		screen.stopScreen();
 	}
