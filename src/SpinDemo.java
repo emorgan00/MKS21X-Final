@@ -3,8 +3,7 @@ import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.input.*;
 import com.googlecode.lanterna.screen.*;
 import com.googlecode.lanterna.terminal.*;
-import java.io.IOException;
-import java.util.concurrent.*;
+import java.io.*;
 import graphics.*;
 
 public class SpinDemo {

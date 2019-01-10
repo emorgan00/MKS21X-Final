@@ -4,7 +4,6 @@ import com.googlecode.lanterna.input.*;
 import com.googlecode.lanterna.screen.*;
 import com.googlecode.lanterna.terminal.*;
 import java.io.IOException;
-import java.util.concurrent.*;
 import graphics.*;
 
 public class Rubiks {
@@ -49,11 +48,6 @@ public class Rubiks {
 		camera.setPos(new Vector(-10, 6, 0));
 		camera.rotate(Vector.UNIT_Z, -Math.PI/6);
 
-		// Diagonal View:
-		//camera.setPos(new Vector(-8, 6, 8));
-		//camera.rotate(Vector.UNIT_Z, -Math.PI/6);
-		//camera.rotate(Vector.UNIT_Y, Math.PI/4);
-
 		// setup the cube
 		for (int x = -2; x < 3; x += 2) {
 			for (int y = -2; y < 3; y += 2) {
@@ -75,6 +69,7 @@ public class Rubiks {
 
 		double anglebuffer = 0;
 		boolean scramble = false; // when true, we scramble the cube
+		int view = 0;
 		Vector rot = Vector.UNIT_Z; // which axis to rotate a face around
 		Vector face = Vector.ZERO; // which face to rotate. ZERO means all faces
 		KeyStroke key = null;
@@ -101,6 +96,17 @@ public class Rubiks {
 				} else if (key.getKeyType() == KeyType.ArrowUp) {
 					rot = Vector.UNIT_Z.scale(-1);
 					face = Vector.ZERO;
+				} else if (key.getKeyType() == KeyType.Tab) {
+					if (view == 0) {
+						view = 1;
+						camera.setPos(new Vector(-7, 5, 7));
+						camera.rotate(Vector.UNIT_Y, Math.PI/4);
+					} else if (view == 1) {
+						view = 0;
+						camera.setPos(new Vector(-10, 6, 0));
+						camera.rotate(Vector.UNIT_Y, -Math.PI/4);
+					}
+					anglebuffer = 0; // overriding rotation
 				} else if (key.getCharacter() == 'e') {
 					rot = Vector.UNIT_Y;
 					face = Vector.UNIT_Y;
@@ -143,7 +149,7 @@ public class Rubiks {
 						obj.rotate(rot, 0.005*dt);
 				}
 				anglebuffer -= 0.005*dt;
-				if (anglebuffer < 0) {
+				if (anglebuffer < 0) { // if we overshot the rotation by a little
 					for (Shape obj : cubes) {
 						if (face == Vector.ZERO || obj.dir().dotProduct(face) > 0.2)
 							obj.rotate(rot, anglebuffer);
