@@ -16,7 +16,7 @@ _Run:_
 - Windows: ```java -cp "lanterna.jar;." Rubiks```
 - Unix: ```java -cp lanterna.jar:. Rubiks```
 
-There are demos other than Rubiks. Run them with similar commands.
+There are demos other than Rubiks. Run them similarly.
 
 __Development Log:__
 
@@ -34,4 +34,8 @@ Added lighting when rendering faces.
 The expected product is now complete. Running Driver.java will show a rotating cube.
 
 _Day 4 (2019-01-06):_
+What was "Driver" is now "SpinDemo".
 Added the Rubik's Cube demo.
+
+_Days 5-14:_
+Doing nothing on my project. Helping other people.
