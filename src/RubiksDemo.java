@@ -50,9 +50,13 @@ public class RubiksDemo {
 					rot = Vector.UNIT_Z;
 				} else if (key.getKeyType() == KeyType.ArrowUp) {
 					rot = Vector.UNIT_Z.scale(-1);
-				} else if (key.getCharacter() == ' ') {
+				} else if (key.getCharacter() == ' ') { // toggle scrambling
 					scramble = !scramble;
 					key = null;
+				} else if (key.getCharacter() == 'w') { // zoom in
+					camera.translate(camera.dir().scale(0.1));
+				} else if (key.getCharacter() == 'x') { // zoom out
+					camera.translate(camera.dir().scale(-0.1));
 				}
 				else if (anglebuffer <= 0 && !scramble) {
 					if (key.getCharacter() == 'd') {
