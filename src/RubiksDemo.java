@@ -8,12 +8,9 @@ import graphics.*;
 
 public class RubiksDemo {
 
-	private static Screen screen;
-	private static Camera camera;
-
 	public static void main(String[] args) throws IOException {
-		screen = new DefaultTerminalFactory().createScreen();
-		camera = new Camera(screen);
+		Screen screen = new DefaultTerminalFactory().createScreen();
+		Camera camera = new Camera(screen);
 
 		screen.startScreen();
 		long stime = System.currentTimeMillis();
