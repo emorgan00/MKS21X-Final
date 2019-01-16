@@ -1,5 +1,6 @@
 import graphics.*;
 import java.util.ArrayList;
+import java.util.Random;
 import com.googlecode.lanterna.*;
 
 public class Rubiks extends Particle implements Renderable {
@@ -91,37 +92,48 @@ public class Rubiks extends Particle implements Renderable {
 	}
 
 	enum Face { // This is what we can use to specify a face
-		RED, ORANGE, YELLOW, GREEN, BLUE, WHITE
+
+		RED, ORANGE, YELLOW, GREEN, BLUE, WHITE;
+
+		private static Random r = new Random();
+
+		public static Face random() {
+			return Face.values()[r.nextInt(6)];
+		}
+	}
+
+	private Vector faceVector(Face face) { // returns the vector passing from the center through the center of a given face
+		switch(face) {
+			case BLUE:
+				return dir();
+			case RED:
+				return normal();
+			case GREEN:
+				return dir().scale(-1);
+			case ORANGE:
+				return normal().scale(-1);
+			case YELLOW:
+				return dir().crossProduct(normal());
+			case WHITE:	
+				return normal().crossProduct(dir());
+			default:
+				return Vector.ZERO;
+		}
 	}
 
 	public void rotateFace(Face face, double angle) { // clockwise. negatives mean counter-clockwise
-		Vector rot;
-		switch(face) {
-			case BLUE:
-				rot = dir();
-				break;
-			case RED:
-				rot = normal();
-				break;
-			case GREEN:
-				rot = dir().scale(-1);
-				break;
-			case ORANGE:
-				rot = normal().scale(-1);
-				break;
-			case YELLOW:
-				rot = dir().crossProduct(normal());
-				break;
-			case WHITE:	
-				rot = normal().crossProduct(dir());
-				break;
-			default:
-				rot = Vector.ZERO;
-		}
+		Vector rot = faceVector(face);
 		for (Shape cube : cubes) {
 			if (rot == Vector.ZERO || cube.dir().dotProduct(rot) > 0.2)
 				cube.rotate(rot, angle);
 		}
+	}
 
+	public Face nearestFace(Vector dir) { // returns the face that is most visible when viewed from dir
+		Face min = Face.RED;
+		for (Face face : Face.values()) {
+			if (faceVector(face).dotProduct(dir) < faceVector(min).dotProduct(dir)) min = face;
+		}
+		return min;
 	}
 }
