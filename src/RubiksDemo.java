@@ -54,7 +54,7 @@ public class RubiksDemo {
 					scramble = !scramble;
 					key = null;
 				}
-				/* else if (anglebuffer >= 0) {
+				else if (anglebuffer <= 0 && !scramble) {
 					if (key.getCharacter() == 'd') {
 						anglebuffer = Math.PI/2;
 						face = cube.nearestFace(camera.dir());
@@ -63,8 +63,24 @@ public class RubiksDemo {
 						anglebuffer = Math.PI/2;
 						face = cube.nearestFace(camera.dir());
 						rotdir = 1;
-					} 
-				} */
+					} else if (key.getCharacter() == 'c') {
+						anglebuffer = Math.PI/2;
+						face = cube.nearestFace(camera.normal());
+						rotdir = -1;
+					} else if (key.getCharacter() == 'z') {
+						anglebuffer = Math.PI/2;
+						face = cube.nearestFace(camera.normal());
+						rotdir = 1;
+					} else if (key.getCharacter() == 'e') {
+						anglebuffer = Math.PI/2;
+						face = cube.nearestFace(camera.normal().scale(-1));
+						rotdir = 1;
+					} else if (key.getCharacter() == 'q') {
+						anglebuffer = Math.PI/2;
+						face = cube.nearestFace(camera.normal().scale(-1));
+						rotdir = -1;
+					}
+				}
 			}
 
 			if (key == null && scramble && anglebuffer <= 0) {
