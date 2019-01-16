@@ -94,20 +94,20 @@ public class Rubiks extends Particle implements Renderable {
 		RED, ORANGE, YELLOW, GREEN, BLUE, WHITE
 	}
 
-	public void rotateFace(Face face, int turns) { // clockwise
+	public void rotateFace(Face face, double angle) { // clockwise. negatives mean counter-clockwise
 		Vector rot;
 		switch(face) {
 			case BLUE:
-				rot = normal();
-				break;
-			case RED:
 				rot = dir();
 				break;
+			case RED:
+				rot = normal();
+				break;
 			case GREEN:
-				rot = normal().scale(-1);
+				rot = dir().scale(-1);
 				break;
 			case ORANGE:
-				rot = dir().scale(-1);
+				rot = normal().scale(-1);
 				break;
 			case YELLOW:
 				rot = dir().crossProduct(normal());
@@ -115,8 +115,13 @@ public class Rubiks extends Particle implements Renderable {
 			case WHITE:	
 				rot = normal().crossProduct(dir());
 				break;
+			default:
+				rot = Vector.ZERO;
 		}
-		
+		for (Shape cube : cubes) {
+			if (rot == Vector.ZERO || cube.dir().dotProduct(rot) > 0.2)
+				cube.rotate(rot, angle);
+		}
 
 	}
 }
