@@ -9,6 +9,11 @@ public class Rubiks extends Particle implements Renderable {
 	public Rubiks(Vector pos, double cubeRadius) {
 		super(pos, Vector.UNIT_X, Vector.UNIT_Y);
 
+		// dir points through the BLUE face
+		// normal points through the RED face
+
+		cubes = new ArrayList<>();
+
 		// Setting up initial triangles
 		Vector a = new Vector(cubeRadius, cubeRadius, cubeRadius);
 		Vector b = new Vector(cubeRadius, cubeRadius, -cubeRadius);
@@ -32,7 +37,7 @@ public class Rubiks extends Particle implements Renderable {
 		Triangle y0 = new Triangle(a, c, e, new TextColor.RGB(255, 255, 0));
 		Triangle y1 = new Triangle(c, g, e, new TextColor.RGB(255, 255, 0));
 
-		// setup the cube
+		// Set up the cube
 		for (int x = -2; x < 3; x += 2) {
 			for (int y = -2; y < 3; y += 2) {
 				for (int z = -2; z < 3; z += 2) {
@@ -43,7 +48,7 @@ public class Rubiks extends Particle implements Renderable {
 					if (z == 2) {cube.addTriangle(y0); cube.addTriangle(y1);}
 					if (x == -2) {cube.addTriangle(g0); cube.addTriangle(g1);}
 					if (x == 2) {cube.addTriangle(b0); cube.addTriangle(b1);}
-					cube.translate(new Vector(x*2.2*cubeRadius, y*2.2*cubeRadius, z*2.2*cubeRadius));
+					cube.translate(new Vector(x*1.1*cubeRadius, y*1.1*cubeRadius, z*1.1*cubeRadius));
 					cube.setDir(cube.pos());
 					cube.setCenter(Vector.ZERO);
 					cube.translate(pos);
@@ -85,4 +90,33 @@ public class Rubiks extends Particle implements Renderable {
 		}
 	}
 
+	enum Face { // This is what we can use to specify a face
+		RED, ORANGE, YELLOW, GREEN, BLUE, WHITE
+	}
+
+	public void rotateFace(Face face, int turns) { // clockwise
+		Vector rot;
+		switch(face) {
+			case BLUE:
+				rot = normal();
+				break;
+			case RED:
+				rot = dir();
+				break;
+			case GREEN:
+				rot = normal().scale(-1);
+				break;
+			case ORANGE:
+				rot = dir().scale(-1);
+				break;
+			case YELLOW:
+				rot = dir().crossProduct(normal());
+				break;
+			case WHITE:	
+				rot = normal().crossProduct(dir());
+				break;
+		}
+		
+
+	}
 }

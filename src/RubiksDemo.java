@@ -20,7 +20,7 @@ public class RubiksDemo {
 		int dt;
 
 		// Setting up the cube
-		Rubiks cube = new Rubiks(Vector.ZERO, 0.9);
+		Rubiks cube = new Rubiks(Vector.UNIT_Z, 0.9);
 
 		double anglebuffer = 0;
 		boolean scramble = false; // when true, we scramble the cube
@@ -28,6 +28,9 @@ public class RubiksDemo {
 		Vector rot = Vector.UNIT_Z; // which axis to rotate a face around
 		Vector face = Vector.ZERO; // which face to rotate. ZERO means all faces
 		KeyStroke key = null;
+
+		camera.setPos(new Vector(-10, 6, 0));
+		camera.rotate(Vector.UNIT_Z, -Math.PI/6);
 
 		while (true) {
 			if (!scramble) key = screen.pollInput();
