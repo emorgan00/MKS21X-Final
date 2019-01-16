@@ -6,7 +6,7 @@ public class Rubiks extends Particle implements Renderable {
 
 	private ArrayList<Shape> cubes;
 
-	public Rubiks(Vector pos, int cubeRadius) {
+	public Rubiks(Vector pos, double cubeRadius) {
 		super(pos, Vector.UNIT_X, Vector.UNIT_Y);
 
 		// Setting up initial triangles
@@ -43,7 +43,7 @@ public class Rubiks extends Particle implements Renderable {
 					if (z == 2) {cube.addTriangle(y0); cube.addTriangle(y1);}
 					if (x == -2) {cube.addTriangle(g0); cube.addTriangle(g1);}
 					if (x == 2) {cube.addTriangle(b0); cube.addTriangle(b1);}
-					cube.translate(new Vector(x, y, z));
+					cube.translate(new Vector(x*2.2*cubeRadius, y*2.2*cubeRadius, z*2.2*cubeRadius));
 					cube.setDir(cube.pos());
 					cube.setCenter(Vector.ZERO);
 					cube.translate(pos);
@@ -68,6 +68,13 @@ public class Rubiks extends Particle implements Renderable {
 		Vector rel = this.pos().subtract(pos);
 		for (Shape cube : cubes) {
 			cube.translate(rel);
+		}
+	}
+
+	public void translate(Vector motion) {
+		super.translate(motion);
+		for (Shape cube : cubes) {
+			cube.translate(motion);
 		}
 	}
 
