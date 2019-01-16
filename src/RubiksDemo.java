@@ -33,16 +33,14 @@ public class RubiksDemo {
 		camera.rotate(Vector.UNIT_Z, -Math.PI/6);
 
 		while (true) {
-			if (!scramble) key = screen.pollInput();
+			key = screen.pollInput();
 			dt = (int)(System.currentTimeMillis()-stime);
 			stime = System.currentTimeMillis();
 
 			// clock is the index of the frame we are on.
 			// dt is the number of millis passed since the last tick.
-			if (key != null && anglebuffer <= 0) {
-				anglebuffer = Math.PI/2;
+			if (key != null) {
 				rot = null;
-				face = null;
 				if      (key.getKeyType() == KeyType.Escape) break;
 				else if (key.getKeyType() == KeyType.ArrowRight) {
 					rot = Vector.UNIT_Y;
@@ -52,40 +50,43 @@ public class RubiksDemo {
 					rot = Vector.UNIT_Z;
 				} else if (key.getKeyType() == KeyType.ArrowUp) {
 					rot = Vector.UNIT_Z.scale(-1);
-				} 
-				else if (key.getCharacter() == 'd') {
-					face = cube.nearestFace(camera.dir());
-					rotdir = -1;
-				} else if (key.getCharacter() == 'a') {
-					face = cube.nearestFace(camera.dir());
-					rotdir = 1;
-				} 
-				else if (key.getCharacter() == ' ') {
-					scramble = true;
+				} else if (key.getCharacter() == ' ') {
+					scramble = !scramble;
 					key = null;
-					anglebuffer = 0;
-				} else anglebuffer = 0;
-			} else if (scramble && anglebuffer <= 0) {
-				if (screen.pollInput() != null) scramble = false;
+				}
+				/* else if (anglebuffer >= 0) {
+					if (key.getCharacter() == 'd') {
+						anglebuffer = Math.PI/2;
+						face = cube.nearestFace(camera.dir());
+						rotdir = -1;
+					} else if (key.getCharacter() == 'a') {
+						anglebuffer = Math.PI/2;
+						face = cube.nearestFace(camera.dir());
+						rotdir = 1;
+					} 
+				} */
+			}
+
+			if (key == null && scramble && anglebuffer <= 0) {
 				anglebuffer = Math.PI/2;
 				face = Rubiks.Face.random();
 				rotdir = (int)(Math.random()*2)*2-1;
 			}
 
 			if (anglebuffer > 0) {
-				if (rot != null) {
-					cube.rotate(rot, 0.005*dt);
-					anglebuffer -= 0.005*dt;
-					if (anglebuffer < 0) { // if we overshot the rotation by a little
-						cube.rotate(rot, anglebuffer);
-					}
-				} else {
+				if (face != null) {
 					cube.rotateFace(face, 0.005*dt*rotdir);
 					anglebuffer -= 0.005*dt;
 					if (anglebuffer < 0) { // if we overshot the rotation by a little
 						cube.rotateFace(face, anglebuffer*rotdir);
+						face = null;
 					}
 				}
+			}
+
+			if (rot != null) {
+				cube.rotate(rot, 0.3);
+				rot = null;
 			}
 
 			camera.doResizeIfNecessary();
