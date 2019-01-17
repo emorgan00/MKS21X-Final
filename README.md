@@ -4,16 +4,16 @@ This project has two components.
 - A _graphics_ package, which provides a framework to store and render 3D objects.
 - A series of _demos_, which are created by me to display the functionality of the package. 
 
-__How to Run this Thing:__
+__How to Compile and Run:__
 
 Enter src folder. All the Demos are right there.
 
-_Compile with the lanterna.jar library:_
-- Windows: ```javac -cp "lanterna.jar;." RubiksDemo.java```
+_Compile with the lanterna.jar library:_  
+- Windows: ```javac -cp "lanterna.jar;." RubiksDemo.java```  
 - Unix: ```javac -cp lanterna.jar:. RubikDemo.java```
 
-_Run:_
-- Windows: ```java -cp "lanterna.jar;." RubiksDemo```
+_Run:_  
+- Windows: ```java -cp "lanterna.jar;." RubiksDemo```  
 - Unix: ```java -cp lanterna.jar:. RubiksDemo```
 
 There are demos other than RubiksDemo. Run them similarly.

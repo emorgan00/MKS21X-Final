@@ -117,7 +117,7 @@ public class Rubiks extends Particle implements Renderable {
 			case WHITE:	
 				return normal().crossProduct(dir());
 			default:
-				return Vector.ZERO;
+				return Vector.ZERO; // this will never get called, but acts as a failsafe
 		}
 	}
 
